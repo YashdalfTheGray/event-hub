@@ -1,0 +1,28 @@
+{
+  "name": "event-hub",
+  "version": "0.1.0",
+  "description": "event-hub",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node dist/index.js",
+    "pouch-start": "pouchdb-server --config ./config.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/YashdalfTheGray/event-hub.git"
+  },
+  "author": "Yash Kulshrestha",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/YashdalfTheGray/event-hub/issues"
+  },
+  "homepage": "https://github.com/YashdalfTheGray/event-hub#readme",
+  "dependencies": {
+    "express": "^4.13.4",
+    "pouchdb": "^5.2.1",
+    "pouchdb-server": "^1.0.1",
+    "tape": "^4.4.0",
+    "typescript": "^1.7.5"
+  }
+}
