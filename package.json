@@ -5,9 +5,10 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node dist/index.js",
+    "start": "tsc && node dist/index.js",
     "pouch-start": "pouchdb-server --config ./config.json",
-    "clean": "git clean -xfd && echo \"An npm install needs to be run to run the app again\""
+    "clean": "git clean -xfd && echo \"An npm install needs to be run to run the app again\"",
+    "postinstall": "typings install"
   },
   "repository": {
     "type": "git",
@@ -20,7 +21,10 @@
   },
   "homepage": "https://github.com/YashdalfTheGray/event-hub#readme",
   "dependencies": {
+    "body-parser": "^1.15.0",
+    "chalk": "^1.1.1",
     "express": "^4.13.4",
+    "morgan": "^1.6.1",
     "pouchdb": "^5.2.1",
     "pouchdb-server": "^1.0.1",
     "tape": "^4.4.0",
