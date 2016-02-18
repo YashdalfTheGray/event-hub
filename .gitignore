@@ -1,8 +1,9 @@
 
 # Created by https://www.gitignore.io/api/node,windows,osx,sublimetext,webstorm
 
-# compiled typescript
+# typescript
 dist/
+typings/
 
 # db files
 db/
