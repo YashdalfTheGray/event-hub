@@ -2,7 +2,7 @@
 Node application to collect all the IoT events
 
 ## getting started
-Run `npm install` to pull down all the node dependencies after cloning the directory.
+Run `npm install` to pull down all the node dependencies after cloning the directory. The `postinstall` script runs `typings install` which means `typings` has to be available to fetch typescript typings for the dependencies. `typings` can be installed using `npm install -g typings`.
 
 ## commands
 * Run `npm run pouch-start` to start the PouchDb server.
