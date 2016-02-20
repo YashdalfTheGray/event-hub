@@ -4,11 +4,14 @@ import * as express from "express";
 import * as bodyParser from "body-parser";
 import * as morgan from "morgan";
 import * as chalk from "chalk";
+import { Events } from "./events";
 
 // Because typscript is being a stupid whiny bitch
 var PouchDb = require('pouchdb');
 
+var db = new PouchDb('http://localhost:5984/events');
 var app = express();
+var iotEvents = new Events('http://localhost:5984/events');
 
 app.use(bodyParser.json());
 app.use(morgan(
@@ -23,7 +26,7 @@ app.use(morgan(
     chalk.gray('":user-agent"')
 ));
 
-var db = new PouchDb('http://localhost:5984/events');
+app.use('/events', iotEvents.router);
 
 app.get('/status', (req, res) => {
     db.info().then(result => {
