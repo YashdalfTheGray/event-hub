@@ -22,21 +22,21 @@ export class PouchDriver implements Interfaces.DatabaseAbstraction {
         return this.db.allDocs({ include_docs: true });
     }
 
-    getOne(docType: string = 'events', docId: string): Promise<any> {
+    getOne(docType: string, docId: string): Promise<any> {
         return this.db.get(docId);
     }
 
-    create(docType: string = 'events', docId: string, doc: PouchDocument): Promise<any> {
+    create(docType: string, docId: string, doc: PouchDocument): Promise<any> {
         doc._id = docId;
         return this.db.put(doc);
     }
 
-    modify(docType: string = 'events', docId: string, docToModify: PouchDocument): Promise<any> {
+    modify(docType: string, docId: string, docToModify: PouchDocument): Promise<any> {
         docToModify._id = docId;
         return this.db.put(docToModify);
     }
 
-    delete(docType: string = 'events', docToDelete: PouchDocument): Promise<any> {
+    delete(docType: string, docToDelete: PouchDocument): Promise<any> {
         return this.db.remove(docToDelete._id, docToDelete.rev);
     }
 }
