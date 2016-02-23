@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "tsc && node dist/index.js",
-    "pouch-start": "pouchdb-server --config ./config.json",
+    "start-pouch": "pouchdb-server --config ./config.json",
     "clean": "git clean -xfd && echo \"An npm install needs to be run to run the app again\"",
     "postinstall": "typings install"
   },
