@@ -1,7 +1,9 @@
+"use strict";
 /// <reference path="../typings/main.d.ts" />
 
 import { Router } from "express";
 import { PouchDriver, PouchDocument } from "./pouchDriver";
+import { ServerModule } from "./serverModule";
 
 export class IotEventId {
     docType: string;
@@ -35,40 +37,35 @@ export class IotEvent {
     }
 }
 
-export class Events {
-    private _router: Router;
+export class Events extends ServerModule {
     private pouch: PouchDriver;
 
     constructor(dbUrl: string) {
+        super();
         this.pouch = new PouchDriver(dbUrl);
-        this._router = Router();
 
         this.setupRoutes();
     }
 
-    get router(): Router {
-        return this._router;
-    }
-
     private setupRoutes() {
-        this._router.get('/', (req, res) => {
+        this.router.get('/', (req, res) => {
             res.status(200).send('GET /events/');
         });
 
-        this._router.get('/:id', (req, res) => {
-            res.status(200).send('GET /events/:id');
+        this.router.get('/:id', (req, res) => {
+            res.status(200).send('GET /events/' + req.params.id);
         });
 
-        this._router.post('/', (req, res) => {
+        this.router.post('/', (req, res) => {
             res.status(200).send('POST /events/');
         });
 
-        this._router.put('/:id', (req, res) => {
-            res.status(200).send('PUT /events/:id');
+        this.router.put('/:id', (req, res) => {
+            res.status(200).send('PUT /events/' + req.params.id);
         });
 
-        this._router.delete('/:id', (req, res) => {
-            res.status(200).send('DELETE /events/:id');
+        this.router.delete('/:id', (req, res) => {
+            res.status(200).send('DELETE /events/' + req.params.id);
         });
     };
 }
