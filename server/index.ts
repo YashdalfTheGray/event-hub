@@ -5,13 +5,13 @@ import * as bodyParser from "body-parser";
 import * as morgan from "morgan";
 import * as chalk from "chalk";
 import { Events } from "./events";
+import { ServerStatus } from "./serverStatus";
 
-// Because typscript is being a stupid whiny bitch
-var PouchDb = require('pouchdb');
+const DB_URL = 'http://localhost:5984/events';
 
-var db = new PouchDb('http://localhost:5984/events');
 var app = express();
-var iotEvents = new Events('http://localhost:5984/events');
+var iotEvents = new Events(DB_URL);
+var status = new ServerStatus(DB_URL);
 
 app.use(bodyParser.json());
 app.use(morgan(
@@ -27,13 +27,6 @@ app.use(morgan(
 ));
 
 app.use('/events', iotEvents.router);
-
-app.get('/status', (req, res) => {
-    db.info().then(result => {
-        res.status(200).json(result);
-    }).catch(error => {
-        res.status(500).json(error);
-    })
-});
+app.use('/status', status.router);
 
 app.listen(process.argv[2] || 8080);
