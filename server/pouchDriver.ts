@@ -1,7 +1,9 @@
+"use strict";
 /// <reference path="../typings/main.d.ts" />
 
 import * as Interfaces from "./interfaces/databaseAbstraction";
 
+// Because typscript is being a stupid whiny bitch
 // again, because typescript is being so butthurt about pouchdb
 var PouchDb = require('pouchdb');
 
@@ -16,6 +18,10 @@ export class PouchDriver implements Interfaces.DatabaseAbstraction {
 
     constructor(dbUrl: string) {
         this.db = new PouchDb(dbUrl);
+    }
+
+    info(): Promise<any> {
+        return this.db.info();
     }
 
     getAll(): Promise<any> {
