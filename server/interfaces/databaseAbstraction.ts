@@ -5,9 +5,9 @@ export interface Document {
 }
 
 export interface DatabaseAbstraction {
-    getAll(): Promise<any>;
-    getOne(docType: string, docId: string): Promise<any>;
-    create(docType: string, docId: string, doc: Document): Promise<any>;
-    modify(docType: string, docId: string, docToModify: Document): Promise<any>;
-    delete(docType: string, docToDelete: Document): Promise<any>;
+    getAll(): Promise<Array<Document>>;
+    getOne(docId: string): Promise<Document>;
+    create(doc: Document): Promise<any>;
+    modify(docToModify: Document): Promise<any>;
+    delete(docToDelete: Document): Promise<any>;
 }
