@@ -30,7 +30,9 @@ export class Events extends ServerModule {
 
     private setupRoutes() {
         this.router.get('/', (req, res) => {
-            this.pouch.getAll().then(result => {
+            this.pouch.getAll({
+                include_docs: req.query.include_docs || false 
+            }).then(result => {
                 res.status(200).json(result);
             }).catch(error => {
                 res.status(500).json(error);

@@ -4,8 +4,11 @@ export interface Document {
     _id: string;
 }
 
+export interface DatabaseConfig {
+}
+
 export interface DatabaseAbstraction {
-    getAll(): Promise<Array<Document>>;
+    getAll(config: DatabaseConfig): Promise<Array<Document>>;
     getOne(docId: string): Promise<Document>;
     create(doc: Document): Promise<any>;
     modify(docToModify: Document): Promise<any>;

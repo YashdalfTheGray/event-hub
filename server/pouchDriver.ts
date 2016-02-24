@@ -12,6 +12,10 @@ export class PouchDocument implements Interfaces.Document {
     _rev: string;
 }
 
+export class PouchConfig implements Interfaces.DatabaseConfig {
+    include_docs: boolean = false;
+}
+
 export class PouchDriver implements Interfaces.DatabaseAbstraction {
 
     db: any;
@@ -24,7 +28,7 @@ export class PouchDriver implements Interfaces.DatabaseAbstraction {
         return this.db.info();
     }
 
-    getAll(): Promise<Array<PouchDocument>> {
+    getAll(config: PouchConfig): Promise<Array<PouchDocument>> {
         return this.db.allDocs({ include_docs: true });
     }
 
