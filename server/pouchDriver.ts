@@ -9,7 +9,7 @@ var PouchDb = require('pouchdb');
 
 export class PouchDocument implements Interfaces.Document {
     _id: string;
-    rev: string;
+    _rev: string;
 }
 
 export class PouchDriver implements Interfaces.DatabaseAbstraction {
@@ -24,25 +24,23 @@ export class PouchDriver implements Interfaces.DatabaseAbstraction {
         return this.db.info();
     }
 
-    getAll(): Promise<any> {
+    getAll(): Promise<Array<PouchDocument>> {
         return this.db.allDocs({ include_docs: true });
     }
 
-    getOne(docType: string, docId: string): Promise<any> {
+    getOne(docId: string): Promise<PouchDocument> {
         return this.db.get(docId);
     }
 
-    create(docType: string, docId: string, doc: PouchDocument): Promise<any> {
-        doc._id = docId;
+    create(doc: PouchDocument): Promise<any> {
         return this.db.put(doc);
     }
 
-    modify(docType: string, docId: string, docToModify: PouchDocument): Promise<any> {
-        docToModify._id = docId;
+    modify(docToModify: PouchDocument): Promise<any> {
         return this.db.put(docToModify);
     }
 
-    delete(docType: string, docToDelete: PouchDocument): Promise<any> {
-        return this.db.remove(docToDelete._id, docToDelete.rev);
+    delete(docToDelete: PouchDocument): Promise<any> {
+        return this.db.remove(docToDelete._id, docToDelete._rev);
     }
 }
