@@ -4,34 +4,15 @@
 import { Router } from "express";
 import { PouchDriver, PouchDocument } from "./pouchDriver";
 import { ServerModule } from "./serverModule";
+import * as _ from "lodash";
 
-export class IotEventId {
-    docType: string;
-    deviceType: string;
-    timeSinceEpoch: Number;
-
-    constructor(docType: string, deviceType: string, time: Number) {
-        this.docType = docType;
-        this.deviceType = deviceType;
-        this.timeSinceEpoch = time;
-    }
-
-    toString(): string {
-        return this.docType + '_' + this.deviceType + '_' + this.timeSinceEpoch;
-    }
-}
-
-export class IotEvent {
-    _id: IotEventId;
+export class IotEvent extends PouchDocument {
     description: string;
-    data: any;
+    data: string;
 
-    constructor(deviceType: string, description: string, data: any, time?: string) {
-        var atTime = parseInt(time);
-        if (atTime.toString().length !== time.length) {
-            atTime = Date.parse(time);
-        }
-        this._id = new IotEventId('event', deviceType, atTime);
+    constructor(_id: string, description: string, data: string) {
+        super();
+        this._id = _id;
         this.description = description;
         this.data = data;
     }
@@ -49,7 +30,11 @@ export class Events extends ServerModule {
 
     private setupRoutes() {
         this.router.get('/', (req, res) => {
-            res.status(200).send('GET /events/');
+            this.pouch.getAll().then(result => {
+                res.status(200).json(result);
+            }).catch(error => {
+                res.status(500).json(error);
+            })
         });
 
         this.router.get('/:id', (req, res) => {
@@ -57,7 +42,16 @@ export class Events extends ServerModule {
         });
 
         this.router.post('/', (req, res) => {
-            res.status(200).send('POST /events/');
+            var doc = new IotEvent(
+                'event_' + req.body.eventSource + '_' + req.body.time,
+                req.body.description,
+                req.body.data
+            );
+            this.pouch.create(doc).then(result => {
+                res.status(201).json(result);
+            }).catch(error => {
+                res.status(500).json(error);
+            });
         });
 
         this.router.put('/:id', (req, res) => {
