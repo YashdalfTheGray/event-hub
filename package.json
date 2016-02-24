@@ -24,6 +24,7 @@
     "body-parser": "^1.15.0",
     "chalk": "^1.1.1",
     "express": "^4.13.4",
+    "lodash": "^4.5.1",
     "morgan": "^1.6.1",
     "pouchdb": "^5.2.1",
     "pouchdb-server": "^1.0.1",

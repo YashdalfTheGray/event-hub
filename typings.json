@@ -9,6 +9,7 @@
     "body-parser": "github:DefinitelyTyped/DefinitelyTyped/body-parser/body-parser.d.ts#9a2c50ea846ee6ae36feaea0accc77ae7b08a748",
     "express": "github:DefinitelyTyped/DefinitelyTyped/express/express.d.ts#dd638012d63e069f2c99d06ef4dcc9616a943ee4",
     "levelup": "github:DefinitelyTyped/DefinitelyTyped/levelup/levelup.d.ts#4de74cb527395c13ba20b438c3a7a419ad931f1c",
+    "lodash": "github:DefinitelyTyped/DefinitelyTyped/lodash/lodash.d.ts#7b7aa2027a8fb6219a8bcf1b6bb12bcd0ff9539d",
     "mime": "github:DefinitelyTyped/DefinitelyTyped/mime/mime.d.ts#cb5206a8ac1c9a3ddfd126f5ecea6729b2361452",
     "morgan": "github:DefinitelyTyped/DefinitelyTyped/morgan/morgan.d.ts#4566a913a3667dc627851d0f7f38ffcd0e7cf6ea",
     "node": "github:DefinitelyTyped/DefinitelyTyped/node/node.d.ts#366b936e62a6244a15f011e0ee0559b903d1dd65",
