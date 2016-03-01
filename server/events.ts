@@ -31,7 +31,7 @@ export class Events extends ServerModule {
     private setupRoutes() {
         this.router.get('/', (req, res) => {
             this.pouch.getAll({
-                include_docs: req.query.include_docs || false 
+                include_docs: req.query.include_docs || false
             }).then(result => {
                 res.status(200).json(result);
             }).catch(error => {
@@ -40,7 +40,11 @@ export class Events extends ServerModule {
         });
 
         this.router.get('/:id', (req, res) => {
-            res.status(200).send('GET /events/' + req.params.id);
+            this.pouch.getOne(req.params.id).then(result => {
+                res.status(200).json(result);
+            }).catch(error => {
+                res.status(500).json(error);
+            });
         });
 
         this.router.post('/', (req, res) => {
@@ -57,11 +61,22 @@ export class Events extends ServerModule {
         });
 
         this.router.put('/:id', (req, res) => {
-            res.status(200).send('PUT /events/' + req.params.id);
+            var docToUpdate = req.body;
+            docToUpdate._id = req.params.id;
+            this.pouch.modify(docToUpdate).then(result => {
+                res.status(200).json(result);
+            }).catch(error => {
+                res.status(500).json(error);
+            });
         });
 
-        this.router.delete('/:id', (req, res) => {
-            res.status(200).send('DELETE /events/' + req.params.id);
+        this.router.delete('/', (req, res) => {
+            var docToDelete = req.body;
+            this.pouch.delete(docToDelete).then(result => {
+                res.status(200).json(result);
+            }).catch(error => {
+                res.status(500).json(error);
+            });
         });
     };
 }
